@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;600&display=swap");
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+body {
+	background-color: #212121;
+	padding: 1rem;
+}
+.cont {
+	min-height: 100vh;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+	transform-style: preserve-3d;
+	perspective: 1200px;
+}
+.card {
+	--transition-duration: 2.3s;
+	position: relative;
+	width: min(500px, 100%);
+	height: 400px;
+	background-color: black;
+	transform-style: preserve-3d;
+	display: flex;
+	color: white;
+	transition: rotate var(--transition-duration) ease;
+
+	&::before {
+		--outline-width: 0.5rem;
+		content: "";
+		position: absolute;
+		inset: 0;
+		transform: translateZ(5px);
+		outline: var(--outline-width) solid rgba(255, 255, 255, 0.3);
+		outline-offset: -2rem;
+		transition: all 0.3s linear;
+	}
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		transform: translateZ(1px);
+		background-color: rgba(0, 0, 0, 0);
+		backface-visibility: hidden;
+		transition: background-color calc(var(--transition-duration) / 2.5) ease;
+	}
+
+	&:hover,
+	&:focus-within {
+		rotate: y -180deg;
+
+		&::before {
+			transform: translateZ(20px);
+			outline: var(--outline-width) solid rgba(255, 255, 255, 0.6);
+		}
+		&::after {
+			background-color: rgba(0, 0, 0, 1);
+		}
+		& :where(.price, .name) {
+			transition: all 0.3s linear;
+		}
+		& .price {
+			transform: translateZ(30px);
+		}
+		& .name {
+			transform: translateZ(40px);
+		}
+	}
+}
+.card * {
+	font-family: "Oswald", sans-serif;
+}
+.image {
+	position: absolute;
+	inset: 0;
+	transform-style: preserve-3d;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	transform: translateZ(1px);
+}
+.card:nth-of-type(1) .image {
+	background-image: url("https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?auto=format&fit=crop&w=600&q=80");
+}
+.card:nth-of-type(2) .image {
+	background-image: url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=600&q=80");
+}
+.card:nth-of-type(3) .image {
+	background-image: url("https://images.unsplash.com/photo-1473081556163-2a17de81fc97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2787&q=80");
+}
+.card:nth-of-type(4) .image {
+	background-image: url("https://images.unsplash.com/photo-1466465304448-5158a3618c9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2858&q=80");
+}
+.card :is(.price, .name) {
+	position: absolute;
+}
+.card .price {
+	top: 3rem;
+	right: 3rem;
+	transform: translateZ(5px);
+	font-size: 2rem;
+}
+.card .name {
+	width: min-content;
+	left: 3rem;
+	bottom: 3rem;
+	transform: translateZ(5px);
+	font-size: 3rem;
+	font-weight: 600;
+	line-height: 1;
+}
+.card .back {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	translate: -50% -50%;
+	rotate: y 180deg;
+	transform: translateZ(40px);
+	display: flex;
+	font-size: 1.5rem;
+}
+.card .back button {
+	--border-width: 2px;
+	width: max-content;
+	background-color: transparent;
+	padding: 0.5rem 1rem;
+	border: var(--border-width) solid white;
+	color: inherit;
+	font-size: inherit;
+	font-weight: 200;
+	transition: all 0.3s ease;
+
+	&:nth-child(1) {
+		border-right-width: calc(var(--border-width) / 2);
+	}
+	&:nth-child(2) {
+		border-left-width: calc(var(--border-width) / 2);
+	}
+	&:focus-visible {
+		outline: none;
+	}
+	&:hover,
+	&:focus-visible {
+		background-color: #ffffff;
+		color: #000000;
+	}
+}
